@@ -26,7 +26,12 @@ fn setup(
     mut meshes: ResMut<Assets<Mesh>>,
     mut materials: ResMut<Assets<StandardMaterial>>,
 ) {
-    commands.spawn(entity_test_grid(meshes, materials));
+    commands.spawn(PbrBundle {
+        mesh: meshes.add(Plane3d::new(Vec3::new(4.0, 4.0, 4.0))),
+        material: materials.add(Color::GREEN),
+        transform: Transform::from_xyz(1.0, 1.0, 1.0),
+        ..default()
+    });
     commands.spawn(PbrBundle {
         mesh: meshes.add(Circle::new(4.0)),
         material: materials.add(Color::WHITE),
@@ -37,16 +42,4 @@ fn setup(
         transform: Transform::from_xyz(-2.5, 4.5, 9.0).looking_at(Vec3::ZERO, Vec3::Y),
         ..default()
     });
-}
-
-fn entity_test_grid(
-    mut meshes: ResMut<Assets<Mesh>>,
-    mut materials: ResMut<Assets<StandardMaterial>>,
-) {
-    PbrBundle {
-        mesh: meshes.add(Plane3d::new(Vec3::new(4.0, 4.0, 4.0))),
-        material: materials.add(Color::GREEN),
-        transform: Transform::from_xyz(1.0, 1.0, 1.0),
-        ..default()
-    };
 }
